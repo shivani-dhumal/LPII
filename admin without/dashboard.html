@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+  <div class="sidebar">
+    <h2>Admin Panel</h2>
+    <div>
+      <div>📅 Events</div>
+      <div>👥 Users</div>
+      <div>⚙️ Settings</div>
+      <div><a href="login.html">🚪 Logout</a></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <h2>Events Management</h2>
+    <table>
+      <tr><th>ID</th><th>Event Name</th><th>Date</th><th>Location</th><th>Actions</th></tr>
+      <tr>
+        <td>#E001</td>
+        <td class="ename">Tech Conference</td>
+        <td class="edate">2025-12-01</td>
+        <td class="elocation">Main Hall</td>
+        <td>
+          <button class="update" onclick="openModal(this)">Update</button>
+          <button class="delete" onclick="deleteEvent(this)">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>#E002</td>
+        <td class="ename">Hackathon</td>
+        <td class="edate">2025-12-15</td>
+        <td class="elocation">IT Building</td>
+        <td>
+          <button class="update" onclick="openModal(this)">Update</button>
+          <button class="delete" onclick="deleteEvent(this)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <h3 style="margin-bottom:20px;">Update Event</h3>
+      <input type="text" id="name" placeholder="Event Name">
+      <input type="date" id="date">
+      <input type="text" id="location" placeholder="Location">
+      <div class="modal-btns">
+        <button class="update" onclick="saveEvent()">Save</button>
+        <button style="background:#6c757d; color:white;" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentRow = null;
+    
+    function openModal(btn) {
+      currentRow = btn.parentElement.parentElement;
+      document.getElementById('name').value = currentRow.querySelector('.ename').textContent;
+      document.getElementById('date').value = currentRow.querySelector('.edate').textContent;
+      document.getElementById('location').value = currentRow.querySelector('.elocation').textContent;
+      document.getElementById('modal').style.display = 'flex';
+    }
+    
+    function saveEvent() {
+      currentRow.querySelector('.ename').textContent = document.getElementById('name').value;
+      currentRow.querySelector('.edate').textContent = document.getElementById('date').value;
+      currentRow.querySelector('.elocation').textContent = document.getElementById('location').value;
+      closeModal();
+      alert('Event updated successfully!');
+    }
+    
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+    
+    function deleteEvent(btn) {
+      if (confirm('Delete this event?')) {
+        btn.parentElement.parentElement.remove();
+      }
+    }
+    
+    document.getElementById('modal').onclick = e => { 
+      if (e.target.id === 'modal') closeModal(); 
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Search</title>
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  margin: 0;
+  padding: 40px;
+  min-height: 100vh;
+}
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+}
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+}
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button {
+  background: #667eea;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.event-item {
+  padding: 15px;
+  margin: 10px 0;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  transition: transform 0.2s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <h1> Event Search</h1>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder=" Search events...">
+    <button onclick="searchEvents()">Search</button>
+  </div>
+  <div id="eventList"></div>
+</div>
+<script>
+const events = [
+  "Tech Conference 2024",
+  "AI Hackathon", 
+  "Web Development Workshop",
+  "Data Science Seminar",
+  "Startup Meetup"
+]
+function displayEvents(arr) {
+  const eventList = document.getElementById('eventList')
+  eventList.innerHTML = arr.map(event => 
+    `<div class="event-item">${event}</div>`
+  ).join('')
+}
+function searchEvents() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase()
+  const filteredEvents = events.filter(event => 
+    event.toLowerCase().includes(searchTerm)
+  )
+  displayEvents(filteredEvents)
+}
+document.getElementById('searchInput').addEventListener('input', searchEvents)
+displayEvents(events)
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Registration</title>
+<style>
+body {
+  font-family: Arial;
+  margin: 40px auto;
+  max-width: 350px;
+  background: #f5f5f5
+}
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px #ccc
+}
+h2 {
+  text-align: center;
+  margin-bottom: 15px
+}
+.group {
+  margin-bottom: 12px
+}
+input {
+  width: 94%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px
+}
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 3px;
+  display: none
+}
+button {
+  background: #007bff;
+  color: white;
+  border: 0;
+  padding: 10px;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer
+}
+.success {
+  background: #28a745;
+  color: white;
+  padding: 8px;
+  text-align: center;
+  margin-top: 10px;
+  border-radius: 3px;
+  display: none
+}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Event Registration</h2>
+<form id="form">
+<div class="group">
+<input type="text" id="name" placeholder="Full Name">
+</div>
+<div class="error" id="nameErr">Enter valid name (min 2 letters)</div>
+
+<div class="group">
+<input type="email" id="email" placeholder="Email">
+</div>
+<div class="error" id="emailErr">Enter valid email</div>
+
+<div class="group">
+<input type="tel" id="mobile" placeholder="Mobile Number">
+</div>
+<div class="error" id="mobileErr">Enter 10-digit number</div>
+
+<button type="submit">Register</button>
+</form>
+<div class="success" id="success">Registration Successful!</div>
+</div>
+
+<script>
+document.getElementById('form').onsubmit = function(e) {
+  e.preventDefault();
+  let n = document.getElementById('name').value.trim();
+  let em = document.getElementById('email').value.trim();
+  let m = document.getElementById('mobile').value.trim();
+  let v = true;
+
+  document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+
+  if(!/^[A-Za-z\s]{2,}$/.test(n)) {
+    document.getElementById('nameErr').style.display = 'block';
+    v = false
+  }
+  if(!/^\S+@\S+\.\S+$/.test(em)) {
+    document.getElementById('emailErr').style.display = 'block';
+    v = false
+  }
+  if(!/^\d{10}$/.test(m)) {
+    document.getElementById('mobileErr').style.display = 'block';
+    v = false
+  }
+
+  if(v) {
+    document.getElementById('success').style.display = 'block';
+    this.reset();
+    setTimeout(() => document.getElementById('success').style.display = 'none', 2000);
+  }
+};
+</script>
+</body>
+</html>
